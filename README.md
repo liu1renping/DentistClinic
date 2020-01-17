@@ -1,4 +1,7 @@
-Code for MERN tutorial.
+Code for MERN tutorial - modified:
+
+- changed from original React Class-Components to Functional Compnents
+- use axios proxy
 
 Video Tutorial: https://www.youtube.com/watch?v=7CqJlxBYj-M
 
