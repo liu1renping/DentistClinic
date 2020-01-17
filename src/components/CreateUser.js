@@ -6,13 +6,18 @@ function CreateUser() {
   function onChangeUsername(event) {
     setUsername(event.target.value);
   }
-  function onSubmit(event) {
+
+  async function onSubmit(event) {
     event.preventDefault();
     const user = {
       username: username
     };
-    axios.post('/users/add', user).then(res => console.log(res.data));
-    // setUsername('');
+    try {
+      await axios.post('/users/add', user);
+    } catch (error) {
+      console.error(error);
+    }
+    setUsername('');
     // return <Redirect to='/exercises' />;
     window.location = '/';
   }

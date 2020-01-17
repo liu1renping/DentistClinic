@@ -29,7 +29,7 @@ function CreateExercise() {
     });
   }
 
-  function onSubmit(event) {
+  async function onSubmit(event) {
     event.preventDefault();
     const exercise = {
       username: newExercise.username,
@@ -37,7 +37,12 @@ function CreateExercise() {
       duration: newExercise.duration,
       date: newExercise.date
     };
-    axios.post('/exercises/add', exercise).then(res => console.log(res.data));
+    try {
+      await axios.post('/exercises/add', exercise);
+    } catch (error) {
+      console.error(error);
+    }
+
     window.location = '/';
   }
 

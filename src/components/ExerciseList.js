@@ -6,25 +6,26 @@ function ExercisesList() {
   const [exercises, setExercises] = useState([]);
 
   useEffect(() => {
-    axios
-      .get('/exercises')
-      .then(response => {
-        console.log(response.data);
-        setExercises(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    const fetchData = async () => {
+      try {
+        const resExs = await axios.get('/exercises');
+        setExercises(resExs.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
   }, []);
 
-  function deleteExercise(id) {
-    axios.delete('/exercises/' + id).then(response => {
-      console.log(response.data);
-    });
-
-    setExercises(prevEx => {
-      return prevEx.filter(el => el._id !== id);
-    });
+  async function deleteExercise(id) {
+    try {
+      await axios.delete('/exercises/' + id);
+      setExercises(prevEx => {
+        return prevEx.filter(el => el._id !== id);
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (

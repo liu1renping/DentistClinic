@@ -35,56 +35,49 @@ function EditExercise() {
   }
 
   useEffect(() => {
-    axios
-      .get('/exercises/' + id)
-      .then(response => {
+    const fetchData = async () => {
+      try {
+        const resEx = await axios.get('/exercises/' + id);
         setExercise(prevEx => {
           return {
             ...prevEx,
-            username: response.data.username,
-            description: response.data.description,
-            duration: response.data.duration,
-            date: new Date(response.data.date)
+            username: resEx.data.username,
+            description: resEx.data.description,
+            duration: resEx.data.duration,
+            date: new Date(resEx.data.date)
           };
         });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+      } catch (error) {
+        console.error(error);
+      }
 
-    axios
-      .get('/users/')
-      .then(response => {
-        const responseData = response.data;
-        if (responseData.length > 0) {
+      try {
+        const resUsers = await axios.get('/users');
+        if (resUsers.data.length > 0) {
           setExercise(prevEx => {
             return {
               ...prevEx,
-              users: responseData.map(user => user.username)
+              users: resUsers.data.map(user => user.username)
             };
           });
         }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  function onSubmit(event) {
+  async function onSubmit(event) {
     event.preventDefault();
-    const ex = {
+    const updatedEx = {
       username: exercise.username,
       description: exercise.description,
       duration: exercise.duration,
       date: exercise.date
     };
-
-    axios
-      .post('/exercises/update/' + id, ex)
-      .then(res => console.log(res.data))
-      .catch(error => {
-        console.error(error);
-      });
+    await axios.post('/exercises/update/' + id, updatedEx);
 
     window.location = '/';
   }
