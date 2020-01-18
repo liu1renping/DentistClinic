@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useHistory } from 'react-router-dom';
 
 function CreateExercise() {
   const [newExercise, setNewExercise] = useState({
@@ -29,6 +30,7 @@ function CreateExercise() {
     });
   }
 
+  let history = useHistory();
   async function onSubmit(event) {
     event.preventDefault();
     const exercise = {
@@ -42,8 +44,7 @@ function CreateExercise() {
     } catch (error) {
       console.error(error);
     }
-
-    window.location = '/';
+    history.push('/');
   }
 
   useEffect(() => {

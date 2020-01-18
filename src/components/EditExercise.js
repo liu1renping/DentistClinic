@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useParams } from 'react-router';
+import { useParams, useHistory } from 'react-router';
 
 function EditExercise() {
+  let { id } = useParams();
   const [exercise, setExercise] = useState({
     username: '',
     description: '',
@@ -12,10 +13,6 @@ function EditExercise() {
     date: new Date(),
     users: []
   });
-
-  let { id } = useParams();
-  console.log(id);
-
   function onChange(event) {
     const { name, value } = event.target;
     setExercise(prevEx => {
@@ -67,8 +64,9 @@ function EditExercise() {
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
+  let history = useHistory();
   async function onSubmit(event) {
     event.preventDefault();
     const updatedEx = {
@@ -78,8 +76,7 @@ function EditExercise() {
       date: exercise.date
     };
     await axios.post('/exercises/update/' + id, updatedEx);
-
-    window.location = '/';
+    history.push('/');
   }
 
   return (

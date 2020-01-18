@@ -1,7 +1,9 @@
 Code for MERN tutorial - modified:
 
 - changed from original React Class-Components to Functional Compnents
+- use React Hooks
 - use axios proxy
+- use useHistory
 
 Original Video Tutorial: https://www.youtube.com/watch?v=7CqJlxBYj-M
 

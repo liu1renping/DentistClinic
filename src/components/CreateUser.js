@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 function CreateUser() {
@@ -7,6 +8,7 @@ function CreateUser() {
     setUsername(event.target.value);
   }
 
+  let history = useHistory();
   async function onSubmit(event) {
     event.preventDefault();
     const user = {
@@ -18,8 +20,7 @@ function CreateUser() {
       console.error(error);
     }
     setUsername('');
-    // return <Redirect to='/exercises' />;
-    window.location = '/';
+    history.push('/create');
   }
 
   return (
