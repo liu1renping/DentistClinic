@@ -3,10 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
-import ExercisesList from './components/ExerciseList';
-import EditExercise from './components/EditExercise';
-import CreateExercise from './components/CreateExercise';
-import CreateUser from './components/CreateUser';
+import bookingList from './components/BookingList';
+import bookingEdit from './components/BookingEdit';
+import bookingAdd from './components/BookingAdd';
+import doctorAdd from './components/DoctorAdd';
+import contact from './components/Contact';
 
 function App() {
   return (
@@ -14,10 +15,12 @@ function App() {
       <div className='container'>
         <Navbar />
         <br />
-        <Route path='/' component={ExercisesList} exact />
-        <Route path='/edit/:id' component={EditExercise} />
-        <Route path='/create' component={CreateExercise} />
-        <Route path='/user' component={CreateUser} />
+        <Route exact path='/' component={bookingList} />
+        <Route exact path='/bookings' component={bookingList} />
+        <Route exact path='/bookings/add' component={bookingAdd} />
+        <Route exact path='/bookings/edit/:id' component={bookingEdit} />
+        <Route exact path='/doctors/add' component={doctorAdd} />
+        <Route exact path='/contact' component={contact} />
       </div>
     </Router>
   );

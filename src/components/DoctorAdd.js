@@ -2,50 +2,46 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-function CreateUser() {
-  const [username, setUsername] = useState('');
-  function onChangeUsername(event) {
-    setUsername(event.target.value);
+function DoctorAdd() {
+  const [doctorName, setDoctorname] = useState('');
+  function onChangeDoctorname(event) {
+    setDoctorname(event.target.value);
   }
 
   let history = useHistory();
   async function onSubmit(event) {
     event.preventDefault();
-    const user = {
-      username: username
+    const doctor = {
+      doctorName: doctorName
     };
     try {
-      await axios.post('/users/add', user);
+      await axios.post('/doctors/add', doctor);
     } catch (error) {
       console.error(error);
     }
-    setUsername('');
-    history.push('/create');
+    setDoctorname('');
+    history.push('/');
   }
 
   return (
     <div>
-      <h3>Create New User</h3>
+      <h3>Create New Doctor</h3>
       <form onSubmit={onSubmit}>
         <div className='form-group'>
-          <label>Username: </label>
+          <label>Doctorname: </label>
           <input
             type='text'
             required
             className='form-control'
-            value={username}
-            onChange={onChangeUsername}
+            value={doctorName}
+            onChange={onChangeDoctorname}
           />
         </div>
         <div className='form-group'>
-          <input
-            type='submit'
-            value='Create User'
-            className='btn btn-primary'
-          />
+          <input type='submit' value='Add Doctor' className='btn btn-primary' />
         </div>
       </form>
     </div>
   );
 }
-export default CreateUser;
+export default DoctorAdd;
